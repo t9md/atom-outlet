@@ -1,12 +1,12 @@
 {
-  "name": "atom-relocatable-item",
+  "name": "atom-outlet",
   "main": "./lib/index.js",
   "version": "0.0.0",
-  "description": "Translate and write result to editor in dock or split-pane",
+  "description": "library to create relocatable item for AtomEditor, this is not package!",
   "keywords": [
     "translate"
   ],
-  "repository": "https://github.com/t9md/atom-atom-relocatable-item",
+  "repository": "https://github.com/t9md/atom-outlet",
   "license": "MIT",
   "devDependencies": {
     "prettier": "^1.11.0",
