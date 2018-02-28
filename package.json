@@ -1,0 +1,36 @@
+{
+  "name": "atom-relocatable-item",
+  "version": "1.0.0",
+  "description": "library to create relocatable item for AtomEditor",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "standard lib/*.js spec/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/t9md/atom-relocatable-item.git"
+  },
+  "keywords": [],
+  "author": "t9md",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/t9md/atom-relocatable-item/issues"
+  },
+  "devDependencies": {
+    "prettier": "^1.11.0",
+    "standard": "^11.0.0"
+  },
+  "standard": {
+    "parser": "babel-eslint",
+    "globals": [
+      "atom",
+      "describe",
+      "jasmine",
+      "expect"
+    ],
+    "ignore": [
+      "spec/fixtures/*"
+    ]
+  }
+}
