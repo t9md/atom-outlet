@@ -1,7 +1,7 @@
 {
   "name": "atom-outlet",
   "main": "./lib/index.js",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "description": "library to create outlet for AtomEditor, this is not package!",
   "repository": "https://github.com/t9md/atom-outlet",
   "license": "MIT",
