@@ -14,7 +14,7 @@ Library to create outlet
 const outlet = require('atom-outlet')
 
 // outlet.create return instance of TextEditor
-// which have special `open`, `relocate`, `show`, `hide`
+// which have special `open`, `relocate`, `show`, `hide`, `focus`, `toggle` methods.
 const editor = outlet.create({
   title: 'Sample outlet',
   classList: ['sample'],
@@ -26,6 +26,9 @@ await editor.open()
 editor.hide() // atom.workspace.hide(editor)
 editor.show() // show dock
 editor.relocate() // relocate to center workspace
+editor.toggle()
+editor.show()
+editor.focus()
 ```
 
 ### `extendsEditor: false`  
@@ -43,10 +46,12 @@ const editor = outlet.create({
 })
 
 await outlet.open(editor)
-outlet.hide(editor)
+outlet.hide(editor) // atom.workspace.hide(editor)
+outlet.show(editor) // show dock
+outlet.relocate(editor) // relocate to center workspace
+outlet.toggle(editor)
 outlet.show(editor)
-outlet.relocate(editor)
-editor.relocate()
+outlet.focus(editor)
 ```
 
 ## Default options for `create`
