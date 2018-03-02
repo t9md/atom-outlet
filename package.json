@@ -3,9 +3,6 @@
   "main": "./lib/index.js",
   "version": "0.0.0",
   "description": "library to create outlet for AtomEditor, this is not package!",
-  "keywords": [
-    "translate"
-  ],
   "repository": "https://github.com/t9md/atom-outlet",
   "license": "MIT",
   "devDependencies": {
@@ -13,7 +10,6 @@
     "standard": "^11.0.0"
   },
   "scripts": {
-    "watch": "fswatch -0 spec lib | xargs -0 -n1 -I{} apm test",
     "prettier": "prettier --write --no-semi --print-width=120 --no-bracket-spacing --trailing-comma=es5 'lib/**/*.js' 'spec/*.js'",
     "lint": "standard lib/*.js lib/**/*.js spec/*.js"
   },
@@ -21,7 +17,6 @@
     "env": {
       "atomtest": true,
       "browser": true,
-      "jasmine": true,
       "node": true
     },
     "globals": [
