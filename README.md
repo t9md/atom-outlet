@@ -57,8 +57,13 @@ outlet.focus(editor)
 ## Default options for `create`
 
 ``` javascript
-const DEFAULT_OPTIONS = {
+const DEFAULT_EDITOR_OPTIONS = {
   buffer: undefined,
+  autoHeight: false
+}
+
+const DEFAULT_OPTIONS = {
+  editorOptions: DEFAULT_EDITOR_OPTIONS,
   allowedLocations: ['center', 'bottom'],  // One of ['center', 'bottom', 'left', 'right']
   defaultLocation: ['bottom'], // One of ['center', 'bottom', 'left', 'right']
   split: 'right', // Which direction  to split in center workspace
