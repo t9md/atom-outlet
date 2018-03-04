@@ -1,3 +1,6 @@
+# 0.10.0
+- Introduce `toggleFocus`
+
 # 0.9.0
 - Refocus to linked-pane on hide.
 
