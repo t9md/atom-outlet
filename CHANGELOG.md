@@ -1,3 +1,6 @@
+# 0.9.0
+- Refocus to linked-pane on hide.
+
 # 0.7.0
 - Now can hide `outlet` in `center` container by `relocate` to dock before `hide`.
 
