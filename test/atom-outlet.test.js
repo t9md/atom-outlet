@@ -1,7 +1,7 @@
 const assert = require('assert')
 const atomOutlet = require('../lib/index.js')
 const {TextEditor, TextBuffer} = require('atom')
-const {getLocationForItem} = require('../lib/utils')
+const {getLocationForItem, isVisibleItem, isActiveItem} = require('../lib/utils')
 
 const SPECIAL_METHODS = ['open', 'relocate', 'show', 'hide', 'toggle', 'focus', 'toggleFocus', 'link']
 
@@ -11,6 +11,7 @@ describe('atom-outlet library', () => {
     document.body.appendChild(workspaceElement)
     document.body.focus()
   })
+
   afterEach(() => {
     atom.workspace.getTextEditors().forEach(editor => editor.destroy())
     workspaceElement.remove()
@@ -168,6 +169,7 @@ describe('atom-outlet library', () => {
       assert(outlet.element.hasFocus())
     })
   })
+
   describe('show', () => {
     it('show', async () => {
       const editor1 = await atom.workspace.open()
@@ -208,7 +210,7 @@ describe('atom-outlet library', () => {
   })
 
   describe('hide/show', () => {
-    it.only('hide in center', async () => {
+    it('hide in center', async () => {
       const editor = await atom.workspace.open()
       assert(editor.element.hasFocus())
 
@@ -278,32 +280,160 @@ describe('atom-outlet library', () => {
   })
 
   describe('toggle', () => {
-    it('open', () => {
-      null
+    it('toggle', async () => {
+      const editor = await atom.workspace.open()
+      assert(editor.element.hasFocus())
+
+      const outlet = atomOutlet.create()
+      await outlet.open()
+
+      const dock = atom.workspace.getBottomDock()
+      assert(getLocationForItem(outlet) === 'bottom')
+      assert(dock.isVisible())
+
+      outlet.toggle()
+
+      assert(!dock.isVisible())
+
+      outlet.toggle()
+
+      assert(dock.isVisible())
     })
   })
+
   describe('focus', () => {
-    it('open', () => {
-      null
+    it('focus', async () => {
+      const editor = await atom.workspace.open()
+      assert(editor.element.hasFocus())
+
+      const outlet = atomOutlet.create()
+      await outlet.open()
+
+      const dock = atom.workspace.getBottomDock()
+      assert(getLocationForItem(outlet) === 'bottom')
+      assert(dock.isVisible())
+
+      outlet.focus()
+      assert(outlet.element.hasFocus())
     })
   })
+
   describe('toggleFocus', () => {
-    it('open', () => {
-      null
+    it('toggleFocus', async () => {
+      const editor = await atom.workspace.open()
+      assert(editor.element.hasFocus())
+
+      const outlet = atomOutlet.create()
+      await outlet.open()
+
+      const dock = atom.workspace.getBottomDock()
+      assert(getLocationForItem(outlet) === 'bottom')
+      assert(dock.isVisible())
+
+      outlet.toggleFocus()
+      assert(!editor.element.hasFocus())
+      assert(outlet.element.hasFocus())
+
+      outlet.toggleFocus()
+      assert(editor.element.hasFocus())
+      assert(!outlet.element.hasFocus())
     })
   })
+
   describe('link', () => {
-    it('open', () => {
-      null
+    let outlet, editor1, editor2, rightPane, leftPane
+
+    beforeEach(async () => {
+      editor1 = await atom.workspace.open()
+      editor2 = await atom.workspace.open(null, {split: 'right'})
+      const panes = atom.workspace.getCenter().getPanes()
+      leftPane = panes[0]
+      rightPane = panes[1]
+      assert(leftPane.getActiveItem() === editor1)
+      assert(rightPane.getActiveItem() === editor2)
+      leftPane.activate()
+      leftPane.activateItem(editor1)
+      outlet = await atomOutlet.create().open()
+    })
+
+    it('[link editor1] try to keep linked-editor visible while relocating, and focus-to-linked editor when hidden', async () => {
+      outlet.link(editor1)
+
+      // when outlet doesn't have focus
+      assert(editor1.element.hasFocus())
+      outlet.relocate()
+      assert(getLocationForItem(outlet) === 'center')
+      assert(rightPane.getActiveItem() === outlet)
+      assert(isVisibleItem(editor1))
+      assert(!isVisibleItem(editor2))
+      assert(editor1.element.hasFocus())
+
+      outlet.relocate()
+      assert(getLocationForItem(outlet) === 'bottom')
+      assert(isVisibleItem(editor1))
+      assert(isVisibleItem(editor2))
+      assert(editor1.element.hasFocus())
+
+      // when outlet has focus
+      outlet.focus()
+      assert(outlet.element.hasFocus())
+      outlet.relocate()
+      assert(getLocationForItem(outlet) === 'center')
+      assert(rightPane.getActiveItem() === outlet)
+      assert(isVisibleItem(editor1))
+      assert(!isVisibleItem(editor2))
+      assert(outlet.element.hasFocus())
+
+      outlet.relocate()
+      assert(getLocationForItem(outlet) === 'bottom')
+      assert(isVisibleItem(editor1))
+      assert(isVisibleItem(editor2))
+      assert(outlet.element.hasFocus())
+
+      outlet.hide()
+      assert(editor1.element.hasFocus())
+    })
+
+    it('[link editor2] try to keep linked-editor visible while relocating, and focus-to-linked editor when hidden', async () => {
+      outlet.link(editor2)
+
+      // when outlet doesn't have focus
+      assert(editor1.element.hasFocus())
+      outlet.relocate()
+      assert(getLocationForItem(outlet) === 'center')
+      assert(leftPane.getActiveItem() === outlet)
+      assert(!isVisibleItem(editor1))
+      assert(isVisibleItem(editor2))
+      assert(outlet.element.hasFocus())
+
+      leftPane.activate()
+      leftPane.activateItem(editor1)
+
+      assert(editor1.element.hasFocus())
+      outlet.relocate()
+      assert(getLocationForItem(outlet) === 'bottom')
+      assert(isVisibleItem(editor1))
+      assert(isVisibleItem(editor2))
+      assert(editor1.element.hasFocus())
+
+      // when outlet has focus
+      outlet.focus()
+      assert(outlet.element.hasFocus())
+      outlet.relocate()
+      assert(getLocationForItem(outlet) === 'center')
+      assert(leftPane.getActiveItem() === outlet)
+      assert(!isVisibleItem(editor1))
+      assert(isVisibleItem(editor2))
+      assert(outlet.element.hasFocus())
+
+      outlet.relocate()
+      assert(getLocationForItem(outlet) === 'bottom')
+      assert(isVisibleItem(editor1))
+      assert(isVisibleItem(editor2))
+      assert(outlet.element.hasFocus())
+
+      outlet.hide()
+      assert(editor2.element.hasFocus())
     })
   })
 })
-
-function isActiveItem (item) {
-  return (
-    atom.workspace
-      .getActivePaneContainer()
-      .getActivePane()
-      .getActiveItem() === item
-  )
-}
