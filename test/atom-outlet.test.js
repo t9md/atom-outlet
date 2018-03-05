@@ -169,6 +169,24 @@ describe('atom-outlet library', () => {
       outlet.relocate()
       assert(outlet.element.hasFocus())
     })
+
+    it('call callback subscribed by onDidRelocate', async () => {
+      const outlet = atomOutlet.create()
+      await outlet.open()
+      let callCount = 0
+      outlet.onDidRelocate(() => {
+        callCount++
+      })
+      assert(callCount === 0)
+      outlet.relocate()
+      assert(callCount === 1)
+      outlet.relocate()
+      assert(callCount === 2)
+      outlet.relocate()
+      outlet.relocate()
+      outlet.relocate()
+      assert(callCount === 5)
+    })
   })
 
   describe('show', () => {
