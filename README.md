@@ -35,6 +35,7 @@ editor.toggle()
 editor.show()
 editor.focus()
 ```
+
 ## Default options for `create`
 
 ``` javascript
