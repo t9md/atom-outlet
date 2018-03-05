@@ -5,16 +5,19 @@ Library to create outlet
 - Close from keyboard without focusing
 - Hide from keyboard without focusing
 - Relocate from keyboard without focusing
+- Emulate hiding outlet in center workspace by relocating to dock.
 
-## How to use
+## Related
 
-### Example
+Atom package [outlet-manager](https://atom.io/packages/outlet-manager) provides useful commands to manipulate outlets in workspace in uniform manner.
+
+## Example
 
 ```javascript
 const outlet = require('atom-outlet')
 
 // outlet.create return instance of TextEditor
-// which have special `open`, `relocate`, `show`, `hide`, `focus`, `toggle` methods.
+// With special `open`, `relocate`, `show`, `hide`, `toggle`, `focus`, `toggleFocus`, `link` methods.
 const editor = outlet.create({
   title: 'Sample outlet',
   classList: ['sample'],
@@ -39,7 +42,7 @@ const DEFAULT_EDITOR_OPTIONS = {
 }
 
 const DEFAULT_OPTIONS = {
-  editorOptions: DEFAULT_EDITOR_OPTIONS,
+  editorOptions: DEFAULT_EDITOR_OPTIONS, // pass-through-ed to `new TextEditor(editorOptions)`.
   allowedLocations: ['center', 'bottom'],  // One of ['center', 'bottom', 'left', 'right']
   defaultLocation: ['bottom'], // One of ['center', 'bottom', 'left', 'right']
   split: 'right', // Which direction  to split in center workspace
