@@ -6,6 +6,7 @@ const {getLocationForItem, isVisibleItem, isActiveItem} = require('../lib/utils'
 const SPECIAL_METHODS = ['open', 'relocate', 'show', 'hide', 'toggle', 'focus', 'toggleFocus', 'link']
 
 describe('atom-outlet library', () => {
+  let workspaceElement
   beforeEach(() => {
     workspaceElement = atom.views.getView(atom.workspace)
     document.body.appendChild(workspaceElement)

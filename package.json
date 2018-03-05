@@ -20,7 +20,8 @@
     "env": {
       "atomtest": true,
       "browser": true,
-      "node": true
+      "node": true,
+      "mocha": true
     },
     "globals": [
       "atom"
