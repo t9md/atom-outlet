@@ -1,3 +1,9 @@
+# 0.11.0
+- Remove conditional `extendsTextEditor`
+- Allow hide center outlet
+- Lots of minor tune/improvement
+- Add test spec
+
 # 0.10.0
 - Introduce `toggleFocus`
 
