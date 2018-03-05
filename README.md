@@ -1,5 +1,7 @@
 # atom-outlet
 
+[![Build Status](https://travis-ci.org/t9md/atom-outlet.svg?branch=master)](https://travis-ci.org/t9md/atom-outlet)
+
 Library to create outlet
 
 - Close from keyboard without focusing
