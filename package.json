@@ -1,15 +1,18 @@
 {
   "name": "atom-outlet",
   "main": "./lib/index.js",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "description": "library to create outlet for AtomEditor, this is not package!",
   "repository": "https://github.com/t9md/atom-outlet",
   "license": "MIT",
   "devDependencies": {
     "prettier": "^1.11.0",
-    "standard": "^11.0.0"
+    "standard": "^11.0.0",
+    "atom-mocha-test-runner": "^0.3.0"
   },
+  "atomTestRunner": "atom-mocha-test-runner",
   "scripts": {
+    "watch": "fswatch -0 test lib | xargs -0 -n1 -I{} atom -t test",
     "prettier": "prettier --write --no-semi --print-width=120 --no-bracket-spacing --trailing-comma=es5 'lib/**/*.js' 'spec/*.js'",
     "lint": "standard lib/*.js lib/**/*.js spec/*.js"
   },
