@@ -8,7 +8,7 @@ Library to create outlet
 
 ## How to use
 
-### `extendsEditor: true`  
+### Example
 
 ```javascript
 const outlet = require('atom-outlet')
@@ -30,30 +30,6 @@ editor.toggle()
 editor.show()
 editor.focus()
 ```
-
-### `extendsEditor: false`  
-
-```javascript
-const outlet = require('atom-outlet')
-
-// outlet.create return instance of TextEditor
-// which have special `open`, `relocate`, `show`, `hide`
-const editor = outlet.create({
-  title: 'Sample outlet',
-  classList: ['sample'],
-  defaultLocation: 'bottom'
-  extendsTextEditor: true
-})
-
-await outlet.open(editor)
-outlet.hide(editor) // atom.workspace.hide(editor)
-outlet.show(editor) // show dock
-outlet.relocate(editor) // relocate to center workspace
-outlet.toggle(editor)
-outlet.show(editor)
-outlet.focus(editor)
-```
-
 ## Default options for `create`
 
 ``` javascript
@@ -71,6 +47,5 @@ const DEFAULT_OPTIONS = {
   trackModified: false, // When false, you won't be asked to save when closing outlet
   classList: [],
   useAdjacentPane: true, // By default pick adjacent pane to open outlet if exists.
-  extendsTextEditor: false // Directly set four  method(open, relocate, hide, show) on editor(throw when conflicts)
 }
 ```
