@@ -245,6 +245,13 @@ describe('atom-outlet library', () => {
       assert(!dock.isVisible())
 
       // Hide outlet when dock have no item
+      const disposable = dock.getActivePane().onDidAddItem(state => {
+        disposable.dispose()
+        assert(state.moved === true)
+        assert(state.item === outlet)
+        // Ensure this attribute is set before moving
+        assert(outlet.element.hasAttribute('outlet-hidden-in-center'))
+      })
       outlet.hide()
       assert(!dock.isVisible())
       assert(dock.getActivePaneItem() === outlet)
@@ -325,15 +332,27 @@ describe('atom-outlet library', () => {
       const editor = await atom.workspace.open()
       assert(editor.element.hasFocus())
 
-      const outlet = atomOutlet.create()
-      await outlet.open()
+      const outlet1 = atomOutlet.create()
+      const outlet2 = atomOutlet.create()
+      await outlet1.open()
+      await outlet2.open()
 
       const dock = atom.workspace.getBottomDock()
-      assert(getLocationForItem(outlet) === 'bottom')
+      assert(getLocationForItem(outlet1) === 'bottom')
+      assert(getLocationForItem(outlet2) === 'bottom')
       assert(dock.isVisible())
 
-      outlet.focus()
-      assert(outlet.element.hasFocus())
+      outlet2.focus()
+      assert(outlet2.element.hasFocus())
+
+      outlet2.hide()
+      assert(!dock.isVisible())
+      assert(dock.getActivePaneItem(), outlet2)
+
+      // regression-guard: focus when outlet1 is not activePaneItem
+      outlet1.focus()
+      assert(dock.isVisible())
+      assert(outlet1.element.hasFocus())
     })
   })
 
