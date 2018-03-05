@@ -1,3 +1,6 @@
+# 0.12.0
+- add `onDidRelocate` mixin. used in `atom-narrow` pkg
+
 # 0.11.0
 - Remove conditional `extendsTextEditor`
 - Allow hide center outlet
