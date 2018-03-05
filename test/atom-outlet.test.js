@@ -101,7 +101,7 @@ describe('atom-outlet library', () => {
     describe('mixis special methods', () => {
       it('add special methods on TextEditor', async () => {
         const outlet = atomOutlet.create({extendsTextEditor: true})
-        for (name of SPECIAL_METHODS) {
+        for (const name of SPECIAL_METHODS) {
           assert.equal(outlet.hasOwnProperty(name), true)
           assert.equal(typeof outlet[name] === 'function', true)
         }
