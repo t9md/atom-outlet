@@ -1,3 +1,7 @@
+# 0.13.1
+- Update dependencies.
+- Explicitly activate pane in `focus()`.
+
 # 0.13.0
 - Minor fix for `focus`
 - Set `outlet-hidden-in-center` attribute on hide BEFORE start hiding so that other object can know why item moved.

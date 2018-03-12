@@ -6,9 +6,9 @@
   "repository": "https://github.com/t9md/atom-outlet",
   "license": "MIT",
   "devDependencies": {
-    "prettier": "^1.11.0",
-    "standard": "^11.0.0",
-    "atom-mocha-test-runner": "^0.3.0"
+    "atom-mocha-test-runner": "^1.2.0",
+    "prettier": "^1.11.1",
+    "standard": "^11.0.0"
   },
   "atomTestRunner": "atom-mocha-test-runner",
   "scripts": {
